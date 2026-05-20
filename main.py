@@ -1,7 +1,5 @@
-def hello():
-    """Função de exemplo que retorna saudação."""
-    return "Olá, CodeHealth!"
+def soma(a, b):
+    return a + b
 
 if __name__ == "__main__":
-    print(hello())
-
+    print("Sistema CodeHealth iniciado")
