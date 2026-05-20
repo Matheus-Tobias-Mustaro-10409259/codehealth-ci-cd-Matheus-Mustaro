@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+
+# Ambiente virtual
+venv/
+
+# Variáveis de ambiente
+config.env
+
+# Artefatos
+*.zip
