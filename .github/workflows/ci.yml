@@ -1,0 +1,43 @@
+name: CodeHealth CI/CD
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: |
+          pip install -r requirements.txt
+
+      - name: Build
+        run: |
+          echo "Compilando aplicação..."
+
+      - name: Executar testes
+        run: |
+          pytest
+
+      - name: Relatório
+        run: |
+          echo "Build successful"
+
+      - name: Deploy Homologação
+        if: success()
+        run: |
+          mkdir -p staging
+          cp main.py staging/
+          echo "Deploy realizado em staging"
