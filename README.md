@@ -1,11 +1,41 @@
-# codehealth-ci-cd-Matheus-Mustaro
+# CodeHealth CI/CD
 
-# Objetivo
+Projeto acadêmico para demonstrar conceitos de:
 
-Compreender e aplicar os princípios de Integração Contínua (CI/CD) e Gerência de Configuração por meio da criação de um pipeline simples e do controle de versões de código e infraestrutura.
+- Integração Contínua (CI)
+- Entrega Contínua (CD)
+- Gerência de Configuração
+- GitHub Actions
+- DevOps
 
-# Contexto
+## Estrutura de Branches
 
-Uma startup fictícia chamada CodeHealth está desenvolvendo um sistema web de agendamento médico. O time decidiu adotar DevOps para reduzir falhas de integração e garantir que cada atualização seja testada e implantada com segurança.
+- main → produção
+- develop → integração
+- feature/teste-ci → funcionalidades temporárias
 
-Vocês foram designados para criar a primeira versão do pipeline de CI/CD e aplicar boas práticas de gerência de configuração.
+## Pipeline CI/CD
+
+O workflow executa automaticamente a cada push na branch `develop`.
+
+Etapas:
+
+1. Build
+2. Testes automatizados
+3. Relatório de status
+4. Deploy em homologação (staging)
+
+## Segurança
+
+O arquivo `config.env` não é versionado para evitar exposição de credenciais.
+
+Variáveis sensíveis devem ser armazenadas utilizando GitHub Secrets.
+
+## Gatilhos
+
+```yaml
+on:
+  push:
+    branches:
+      - develop
+```
