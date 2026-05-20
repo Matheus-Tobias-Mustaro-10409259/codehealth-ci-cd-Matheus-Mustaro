@@ -1,5 +1,4 @@
-import pytest
-from src.main import hello
+from main import soma
 
-def test_hello():
-    assert hello() == "Olá, CodeHealth!"
+def test_soma():
+    assert soma(2, 2) == 4
