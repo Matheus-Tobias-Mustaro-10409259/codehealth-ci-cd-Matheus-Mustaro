@@ -1,2 +1,2 @@
-def agendar_consulta(paciente, medico)
-    return "Erro proposital"
+def agendar_consulta(paciente, medico):
+    return f"Consulta agendada para {paciente} com Dr(a). {medico}"
