@@ -1,12 +1,19 @@
 # Python
 __pycache__/
 *.pyc
-
-# Ambiente virtual
+*.pyo
+*.pyd
+.venv/
 venv/
 
-# Variáveis de ambiente
+# Arquivos de ambiente
 config.env
+.env
 
 # Artefatos
+staging/
 *.zip
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
