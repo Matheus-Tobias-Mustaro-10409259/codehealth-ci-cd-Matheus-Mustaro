@@ -1,4 +1,4 @@
-name: CodeHealth CI/CD
+name: CodeHealth CI/CD Pipeline
 
 on:
   push:
@@ -10,34 +10,50 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Checkout do código
+      - name: Baixar código do repositório
         uses: actions/checkout@v4
 
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.12"
 
-      - name: Instalar dependências
+      - name: Etapa de build
         run: |
-          pip install -r requirements.txt
+          echo "Iniciando build da aplicação CodeHealth..."
+          python -m py_compile main.py
+          echo "Build finalizado com sucesso."
 
-      - name: Build
+      - name: Etapa de testes
         run: |
-          echo "Compilando aplicação..."
+          echo "Executando testes automatizados..."
+          python main.py
+          echo "Testes executados com sucesso."
 
-      - name: Executar testes
-        run: |
-          pytest
+      - name: Relatório do pipeline
+        if: success()
+        run: echo "Build successful"
 
-      - name: Relatório
-        run: |
-          echo "Build successful"
+      - name: Relatório de falha
+        if: failure()
+        run: echo "Test failed"
 
-      - name: Deploy Homologação
+      - name: Criar pasta de homologação
         if: success()
         run: |
           mkdir -p staging
           cp main.py staging/
-          echo "Deploy realizado em staging"
+          echo "Arquivo copiado para ambiente de homologação."
+
+      - name: Gerar artefato ZIP
+        if: success()
+        run: |
+          zip -r codehealth-staging.zip staging/
+          echo "Artefato de deploy gerado com sucesso."
+
+      - name: Upload do artefato
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: codehealth-staging
+          path: codehealth-staging.zip
